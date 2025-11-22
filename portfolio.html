@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Realtor Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="gradient-strip" aria-hidden="true"></div>
+
+  <!-- Navbar -->
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <div class="brand">
+        <img src="/picture1.jpeg" alt="Realtor logo" />
+        <div class="name">Dinesh Dulal</div>
+      </div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+    
+
+  <header id="home" class="hero" role="banner" aria-label="Realtor hero section"  >
+    <div class="hero-content">
+      <span class="kicker">Your Pennsilveniya home, made simple</span>
+      <h1 class="title">Buying or Selling in Harrisburg &  PA? I’ve Got You.</h1>
+      <p class="subtitle">
+        From first tours to closing day, I handle the details so you don’t have to.
+        Let’s turn your plan into keys.
+      </p>
+          
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#contact">Get a custom plan</a>
+        <a class="btn btn-ghost" href="#about">Why work with me</a>
+      </div>
+    </div>
+
+    
+           
+             <h3 id="contact">Dinesh Dulal <br>(realtor) <br>phone:616-840-2571 <br>email:relator.dinesh@gmail.com</h3>
+          
+  </header>
+
+  <!-- About -->
+  <section id="about" class="section" aria-labelledby="about-title">
+    <h2 id="about-title">About the realtor</h2>
+    <div class="cards">
+      <article class="card">
+        <span class="badge">Experience</span>
+        <h3> years in DMV markets</h3>
+        <p>I specialize in Howard, Anne Arundel, and Montgomery counties with a proven track record in pricing strategy and negotiation.</p>
+      </article>
+      <article class="card">
+        <span class="badge">Approach</span>
+        <h3>Transparent, data-driven guidance</h3>
+        <p>Clear comps, honest timelines, and weekly updates. You’ll always know what’s happening and why.</p>
+      </article>
+      <article class="card">
+        <span class="badge">Network</span>
+        <h3>Trusted local partners</h3>
+        <p>Top lenders, inspectors, stagers, and contractors to keep your transaction smooth and on schedule.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section" aria-labelledby="contact-title">
+    <h2 id="contact-title">Tell me what you need</h2>
+    <p class="helper">Fill out the form and I’ll reach out with options that match your budget and timeline.</p>
+
+    <form id="lead-form" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <input id="name" name="name" type="text" required placeholder=" " autocomplete="name" />
+          <label for="name" class="label">Full name</label>
+        </div>
+        <div class="field">
+          <input id="email" name="email" type="email" required placeholder=" " autocomplete="email" />
+          <label for="email" class="label">Email</label>
+        </div>
+        <div class="field">
+          <input id="phone" name="phone" type="tel" placeholder=" " autocomplete="tel" />
+          <label for="phone" class="label">Phone (optional)</label>
+        </div>
+        <div class="field">
+          <select id="type" name="type" required>
+            <option value="" disabled selected>Select</option>
+            <option>Buy</option>
+            <option>Sell</option>
+            <option>Rent</option>
+          </select>
+          <label for="type" class="label">Service type</label>
+        </div>
+        <div class="field">
+          <input id="budget" name="budget" type="text" placeholder=" " />
+          <label for="budget" class="label">Budget or price range</label>
+        </div>
+        <div class="field">
+          <input id="location" name="location" type="text" placeholder=" " />
+          <label for="location" class="label">Preferred location</label>
+        </div>
+        <div class="field" style="grid-column: 1 / -1;">
+          <textarea id="message" name="message" placeholder=" "></textarea>
+          <label for="message" class="label">Tell me more (timing, must‑haves, etc.)</label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" type="submit">Submit request</button>
+        <button class="btn btn-ghost" type="reset">Reset</button>
+      </div>
+      <p class="helper">By submitting, you consent to be contacted about your inquiry.</p>
+    </form>
+  </section>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    <span class="dot" aria-hidden="true"></span>
+    <div>
+      <strong>Request sent.</strong>
+      <div class="helper">I’ll be in touch shortly—check your email.</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div>© <span id="year"></span> Dinesh Dulal — All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Utility: simple email regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Form handling
+    const form = document.getElementById('lead-form');
+    const toast = document.getElementById('toast');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Basic validation
+      const data = Object.fromEntries(new FormData(form).entries());
+      const errors = [];
+
+      if (!data.name || data.name.trim().length < 2) errors.push('Please enter your full name.');
+      if (!data.email || !emailRegex.test(data.email)) errors.push('Please enter a valid email.');
+      if (!data.type) errors.push('Please select a service type.');
+
+      if (errors.length) {
+        showToast(errors.join(' '), true);
+        return;
+      }
+
+      // Show optimistic toast
+      showToast('Request sent. I’ll be in touch shortly—check your email.');
+
+      // Send notification to realtor (replace with your backend endpoint)
+      try {
+        // Example payload
+        const payload = {
+          ...data,
+          submittedAt: new Date().toISOString(),
+          source: 'portfolio-site'
+        };
+
+        // Replace '/api/notify' with your actual endpoint
+        const res = await fetch('/api/notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error('Failed to notify');
+
+        // Optionally clear the form
+        form.reset();
+      } catch (err) {
+        // Fallback: show error toast
+        showToast('Something went wrong sending your request. Please try again or email directly.', true);
+      }
+    });
+
+    function showToast(message, isError = false) {
+      toast.querySelector('strong').textContent = message.startsWith('Request') ? 'Request sent.' : 'Notice';
+      toast.querySelector('.helper').textContent = message;
+      const dot = toast.querySelector('.dot');
+      dot.style.background = isError ? getComputedStyle(document.documentElement)
+        .getPropertyValue('--danger') : getComputedStyle(document.documentElement).getPropertyValue('--success');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4500);
+    }
+
+    // Smooth scroll behavior for nav links
+    document.querySelectorAll('.nav a, .cta-row a, .footer-links a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Optional: EmailJS example (uncomment and configure)
+    /*
+    // 1) Include EmailJS script in <head>:
+    // <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+   
+  </script>
+</body>
+</html>
